@@ -17,5 +17,8 @@ func main() {
 
 	mux.HandleFunc("/", DefaultHandler)
 
-	log.Fatal(http.ListenAndServe("127.0.0.1:8000", mux))
+	// Wrap mux with logger middleware
+	wrappedMux := LoggerHandler(mux)
+
+	log.Fatal(http.ListenAndServe("127.0.0.1:8000", wrappedMux))
 }
